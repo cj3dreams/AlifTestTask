@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val dataRepository: DataRepositoryImpl): ViewModel() {
-    val mutableLiveData = MutableLiveData<Result<List<PreDataEntity>>>()
+    val mutableLiveData = MutableLiveData<List<PreDataEntity>>()
 
     private val getAllDataFromRemoteUseCase get() = GetAllDataFromRemoteUseCase(dataRepository)
     private val getAllDataFromLocalUserCase get() = GetAllDataFromLocalUserCase(dataRepository)
@@ -21,6 +21,10 @@ class HomeViewModel(private val dataRepository: DataRepositoryImpl): ViewModel()
 
 
     fun getAll() = viewModelScope.launch(Dispatchers.IO) {
-        mutableLiveData.postValue(getAllDataFromRemoteUseCase.invoke())
+        when (val dataResult = getAllDataFromRemoteUseCase.invoke()){
+            is Result.Success -> setDataToLocalUserCase.invoke(dataResult.data)
+            is Result.Error -> setDataToLocalUserCase.invoke(emptyList())
+        }
+        mutableLiveData.postValue(getAllDataFromLocalUserCase.invoke())
     }
 }

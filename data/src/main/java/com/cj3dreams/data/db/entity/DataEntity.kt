@@ -2,9 +2,11 @@ package com.cj3dreams.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName =  "dataEntity")
+@Entity(tableName =  "dataEntity", indices =
+[Index(value = ["url"], unique = true)])
 data class DataEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
