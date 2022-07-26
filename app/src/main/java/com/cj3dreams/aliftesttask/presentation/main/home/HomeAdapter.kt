@@ -38,7 +38,9 @@ class HomeAdapter(private val context: Context, private val list: List<PreDataEn
         holder.endDateTx.text = itemData.endDate
         holder.startDateTx.text = itemData.startDate
         glide(context, holder.imgView, itemData.icon)
+        holder.itemRoot.tag = itemData.url
         try {
+            holder.itemRoot.setOnClickListener(onClickListener)
 
         }catch (e: Exception) {
             Log.e("AdapterError", e.message.toString())
