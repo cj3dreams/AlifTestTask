@@ -7,6 +7,6 @@ interface DataRepository {
 
     suspend fun getAllDataRemote(): Result<List<PreDataEntity>>
     suspend fun getAllDataLocal(): List<PreDataEntity>
-
+    suspend fun getAllDataLocalWithPaging(limit: Int, offset: Int): List<PreDataEntity>
     suspend fun setData(list: List<PreDataEntity>)
 }

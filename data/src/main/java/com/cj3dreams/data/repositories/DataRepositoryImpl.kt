@@ -9,8 +9,10 @@ class DataRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
 ): DataRepository {
     override suspend fun getAllDataRemote(): Result<List<PreDataEntity>> = remoteDataSource.getAllData()
-
     override suspend fun getAllDataLocal(): List<PreDataEntity> = localDataSource.getAllDataLocal()
+
+    override suspend fun getAllDataLocalWithPaging(limit: Int, offset: Int): List<PreDataEntity> =
+        localDataSource.getAllDataLocalWithPaging(limit, offset)
 
     override suspend fun setData(list: List<PreDataEntity>) = localDataSource.setData(list)
 }

@@ -16,6 +16,14 @@ class LocaleDataSourceImpl
         }
     }
 
+    override suspend fun getAllDataLocalWithPaging(limit: Int, offset: Int):
+            List<PreDataEntity> = withContext(Dispatchers.IO){
+        val allData = dataDao.getPagedList(limit, offset)
+        return@withContext allData.map {
+            dataEntityMapper.toPreDataEntity(it)
+        }
+    }
+
     override suspend fun setData(list: List<PreDataEntity>) = withContext(Dispatchers.IO){
         val allData = list.map {
             dataEntityMapper.toDataEntity(it)
