@@ -6,7 +6,7 @@ import com.cj3dreams.domain.model.PreDataEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class LocaleDataSourceImpl
+class LocalDataSourceImpl
     (private val dataDao: DataDao,
     private val dataEntityMapper: DataEntityMapper): LocalDataSource {
     override suspend fun getAllDataLocal(): List<PreDataEntity> = withContext(Dispatchers.IO){

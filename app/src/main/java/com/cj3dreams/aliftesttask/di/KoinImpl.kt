@@ -47,7 +47,7 @@ val dataDb = module {
 
     fun provideDataRepository(dataDao: DataDao, dataApi: DataApi) =
         DataRepositoryImpl(
-            LocaleDataSourceImpl(dataDao = dataDao, DataEntityMapper()),
+            LocalDataSourceImpl(dataDao = dataDao, DataEntityMapper()),
             RemoteDataSourceImpl(dataApi = dataApi, DataResponseMapper())
         )
 
